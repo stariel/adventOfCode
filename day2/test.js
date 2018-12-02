@@ -7,7 +7,6 @@ abcdee
 ababab`
 
 let labelArray = input.split('\n');
-console.log(labelArray);
 
 function scan(labels) {
     let charDuo = 0;
@@ -23,9 +22,16 @@ function scan(labels) {
                 charCount.set(char, 1);
             }
         }
-        console.log(charCount);
+        let values = Array.from(charCount.values());
+        if (values.includes(2)) {
+            charDuo +=1
+        }
+        if (values.includes(3)) {
+            charTrio += 1;
+        }
         
     }
+    console.log(charDuo*charTrio);
 
 }
 
