@@ -1,38 +1,42 @@
-let input = `abcdef
-bababc
-abbcde
-abcccd
-aabcdd
-abcdee
-ababab`
+let input = `abcde
+fghij
+klmno
+pqrst
+fguij
+axcye
+wvxyz`
 
 let labelArray = input.split('\n');
 
-function scan(labels) {
-    let charDuo = 0;
-    let charTrio = 0;
-    for (let i = 0; i < labelArray.length; i++) {
-        let charCount = new Map;
-        for (let char of labelArray[i]) {
-            if (charCount.has(char)) {
-                let current = charCount.get(char)
-                charCount.set(char, (current += 1));
+function match(labels) {
+    for (let i = 0; i < labels.length; i++) {
+        let id1 = labels[i];
+        for (let j = i+1; j < labels.length; j++) {
+            let id2 = labels[j];
+            let diff = 0;
+            for (let char = 0; char < id1.length; char++) {
+                if (id1[char] !== id2[char]) {
+                    diff += 1;
+                    if (diff > 1) {
+                        char = 5;
+                    }
+                }
             }
-            else {
-                charCount.set(char, 1);
+            if (diff === 1) {
+                let matchArr = [];
+                let id1Arr = id1.split('');
+                let id2Arr = id2.split('');
+                for (let i = 0; i < id1.length; i++) {
+                    if (id1Arr[i] === id2Arr[i]) {
+                        matchArr.push(id1Arr[i]);
+                    }
+                    
+                }
+                console.log(matchArr.toString());
+            }
             }
         }
-        let values = Array.from(charCount.values());
-        if (values.includes(2)) {
-            charDuo +=1
-        }
-        if (values.includes(3)) {
-            charTrio += 1;
-        }
-        
+    
     }
-    console.log(charDuo*charTrio);
 
-}
-
-scan(labelArray);
+match(labelArray);
